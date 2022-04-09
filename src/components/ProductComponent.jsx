@@ -1,8 +1,11 @@
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, makeStyles, Typography } from "@material-ui/core";
 import { CollectionsOutlined } from "@material-ui/icons";
+import { useSelector } from "react-redux";
+
 //import movies from '../movies'
-import React, {useEffect, useState} from 'react'
-import  * as movies  from "../Data/movies";
+import React, {useEffect} from 'react'
+import axios from 'axios';
+//import  * as movies  from "../Data/movies";
 
 //import * as Data from '../movies'
 
@@ -24,67 +27,71 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const Post = () => {
+const ProductComponent = () => {
 
-  const [films, setFilms] = useState([])
+  const products = useSelector((state) => state.allProducts.product);
+  const { id, title, category, likes, dislikes } = products[0];
 
-  const response = useEffect(async() => {
-    await fetch(movies)
-      .then(res=> res.json())
-      .then(data => setFilms(data))
+  //const [films, setFilms] = useState([])
 
-    async function getData() {
-      const response = await fetch(movies)
-      const getResult = await response.json()
-      setFilms(getResult)
-      console.log(getResult)
-    }
+  // const response = useEffect(async() => {
+  //   await fetch(movies)
+  //     .then(res=> res.json())
+  //     .then(data => setFilms(data))
+
+  //   async function getData() {
+  //     const response = await fetch(movies)
+  //     const getResult = await response.json()
+  //     setFilms(getResult)
+  //     console.log(getResult)
+  //   }
 
 
-getData();
+// getData();
       
-  }, [])
+//   }, [])
 
-  console.log(setFilms)
+//   console.log(setFilms)
+
   const classes = useStyles();
   return (
     <Grid item xs={3}>
-       {films.map(film =>(
+       {/* {films.map(film =>(
         
         <Card className={classes.card} key={film.id}>
 
         </Card>
-      ))}
+      ))} */}
 
 
 
 
 
-        {/* <CardMedia 
+        <CardMedia 
         className={classes.media}
         image= "https://fr.web.img5.acsta.net/c_310_420/medias/nmedia/00/02/33/84/aff11.jpg"
-        /> */}
+        />
 
-        {/* <CardContent>
-          <Typography gutterBottom variant="h5">Title</Typography>
+        <CardContent>
+          <Typography gutterBottom variant="h5">{title}</Typography>
           <Typography variant="h6">Genre</Typography>
 
-        </CardContent> */}
+        </CardContent> 
 
-        {/* <CardActionArea>
+         <CardActionArea>
           <CardActions>
             <Button size="small" color="primary" >Share</Button>
             <Button size="small" color="primary" >Learn More</Button>
 
           </CardActions>
 
-        </CardActionArea> */}
+        </CardActionArea>
 
     </Grid>
   );
 };
 
-export default Post;
+export default ProductComponent;
 
 
 // import { movies$ } from "../Data/movies";
